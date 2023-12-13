@@ -1,0 +1,58 @@
+
+.main{
+  background-color: #131324;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.otp_page_main{
+  background-color: #00000076;
+  width: 40vw;
+  height: 50vh;
+  line-height: 10vh;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+ }
+
+  input{
+    margin: 10px 6px 10px 6px;
+    height: 60px;
+    width: 150px;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    /* display: none; */
+    background-color: transparent;
+    border: 0.1rem solid rgb(42, 3, 48);
+    border-radius: 0.4rem;
+    &:focus {
+      border: 0.1rem solid #997af0;
+      outline: none;
+    }
+  }
+  
+  .submit_btn{
+    background-color: rgb(42, 3, 48);
+    color: white;
+    padding: 1rem 2rem;
+    width: auto;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    &:hover {
+      border: 0.1rem solid #997af0;
+      outline: none;
+    }
+  }
+
+
+  

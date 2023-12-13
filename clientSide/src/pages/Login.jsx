@@ -1,0 +1,183 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import styled from "styled-components";
+import { useNavigate, Link } from "react-router-dom";
+import Logo from "../assets/logo.svg";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { loginRoute } from "../utils/APIRoutes";
+
+export default function Login() {
+  const navigate = useNavigate();
+  const [values, setValues] = useState({ email: "", password: "" });
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 8000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
+
+
+  useEffect(() => {
+    if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+      navigate("/");
+    }
+  }, []);
+
+  const handleChange = (event) => {
+    // console.log('eee',event.target.value);
+    setValues({ ...values, [event.target.name]: event.target.value });
+    // console.log("va", values);
+  };
+
+  const validateForm = () => {
+    const { email, password } = values;
+    if (email === "") {
+      toast.error("Email and Password is required.", toastOptions);
+      return false;
+    } else if (password === "") {
+      toast.error("Email and Password is required.", toastOptions);
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      const { email, password } = values;
+      const { data } = await axios.post(loginRoute, {
+        email,
+        password
+      });
+
+      console.log('data;;',data);
+    
+      if(data.msg == "Incorrect Username or Password"){
+
+        console.log('sfdsf');
+        toast.error(
+          data.msg,
+          toastOptions
+        );
+      }else if(data.msg == "Incorrect Password"){
+
+        console.log('sfdsf');
+        toast.error(
+          data.msg,
+          toastOptions
+        );
+      }else{
+      console.log('else.',data)
+        await localStorage.setItem(
+          process.env.REACT_APP_LOCALHOST_KEY,
+          JSON.stringify(data)
+        );
+        
+        navigate("/");
+      }
+      
+    }
+  };
+
+  return (
+    <>
+      <FormContainer>
+        <form action="" onSubmit={(event) => handleSubmit(event)}>
+          <div className="brand">
+            {/* <img src={Logo} alt="logo" /> */}
+            <h1>Realtime Chat</h1>
+          </div>
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            onChange={(e) => handleChange(e)}
+            min="3"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            onChange={(e) => handleChange(e)}
+          />
+          <button type="submit">Log In</button>
+          <span>
+            Don't have an account ? <Link to="/register">Create One.</Link>
+          </span>
+        </form>
+      </FormContainer>
+      <ToastContainer />
+    </>
+  );
+}
+
+const FormContainer = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  background-color: #131324;
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    img {
+      height: 5rem;
+    }
+    h1 {
+      color: white;
+      text-transform: uppercase;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: #00000076;
+    border-radius: 2rem;
+    padding: 5rem;
+  }
+  input {
+    background-color: transparent;
+    padding: 1rem;
+    border: 0.1rem solid rgb(42, 3, 48);
+    border-radius: 0.4rem;
+    color: white;
+    width: 100%;
+    font-size: 1rem;
+    &:focus {
+      border: 0.1rem solid #997af0;
+      outline: none;
+    }
+  }
+  button {
+    background-color: rgb(42, 3, 48);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    &:hover {
+      background-color: rgb(42, 3, 48);
+    }
+  }
+  span {
+    color: white;
+    text-transform: uppercase;
+    a {
+      color: rgb(42, 3, 48);
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+`;
