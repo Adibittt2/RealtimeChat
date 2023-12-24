@@ -50,7 +50,7 @@ router.get('/', async(req,res)=>{
 router.post("/login", login);
 router.post("/register", register);
 router.post("/emailVerification", emailVerification);
-router.get("/getAllUsers", authentication, getAllUsers);
+router.get("/getAllUsers", getAllUsers);
 router.post("/setavatar",authentication, setAvatar);
 router.get("/logout", authentication, logout);
 router.get("/searchUsers", authentication, searchUsersList)
