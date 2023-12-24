@@ -16,7 +16,7 @@ const router = require("express").Router();
 
 router.get('/', async(req,res)=>{
 
-  res.send(`Hi you are in chat app auth router.`);
+  res.send(`Hi you are in chat app auth router 12:55 `);
 })
 
 
