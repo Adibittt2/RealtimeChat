@@ -6,7 +6,7 @@ const brevo = require('@getbrevo/brevo');
 
 
 
-module.exports.login = async (req, res,next) => {
+module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
@@ -29,7 +29,7 @@ module.exports.login = async (req, res,next) => {
     return res.send({token: token, userDetails: user});
    
   } catch (ex) {
-    next(ex);
+    // next(ex);
     console.log("safdsf",ex);
   }
 };
