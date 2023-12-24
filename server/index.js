@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // strictQuery: false
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+    // strictQuery: true
   })
   .then(() => {
     console.log("DB Connection Successful");
@@ -28,7 +28,7 @@ app.use("/messages", messageRoutes);
 
 app.get('/', async(req,res)=>{
 
-  res.send(`Hi you are in chat app`);
+  res.send(`Hi you are in chat app code deployed on 24thDec,2023`);
 });
 
 const server = app.listen(process.env.PORT, () =>
