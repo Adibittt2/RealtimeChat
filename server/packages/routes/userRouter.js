@@ -16,16 +16,8 @@ const jwt = require('jsonwebtoken');
 const router = require("express").Router();
 
 router.get('/', async(req,res)=>{
-  const users = await User.find().select([
-    "email",
-    "username",
-    "avatarImage",
-    "mobile",
-    "_id",
-  ]);
  
-  return res.json(users);
-  // res.send(`Hi you are in chat app auth router 12:55 `);
+  res.send(`Hi you are in chat app auth router 13:25 `);
 })
 
 
@@ -59,7 +51,7 @@ router.get('/', async(req,res)=>{
 router.post("/login", login);
 router.post("/register", register);
 router.post("/emailVerification", emailVerification);
-router.get("/getAllUsers", getAllUsers);
+router.get("/getAllUsers",authentication, getAllUsers);
 router.post("/setavatar",authentication, setAvatar);
 router.get("/logout", authentication, logout);
 router.get("/searchUsers", authentication, searchUsersList)

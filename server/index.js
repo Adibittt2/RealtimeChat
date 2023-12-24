@@ -28,7 +28,7 @@ app.use("/messages", messageRoutes);
 
 app.get('/', async(req,res)=>{
 
-  res.send(`Hi you are in chat app code deployed on 12:42 24thDec,2023`);
+  res.send(`Hi you are in chat app code deployed on 01:28 24thDec,2023`);
 });
 
 const server = app.listen(process.env.PORT, () =>
