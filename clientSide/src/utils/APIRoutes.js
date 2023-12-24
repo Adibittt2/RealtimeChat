@@ -1,4 +1,4 @@
-export const host = "http://localhost:3001";
+export const host = "https://realtimechatbackend-2imb.onrender.com";
 export const loginRoute = `${host}/auth/login`;
 export const registerRoute = `${host}/auth/register`;
 export const emailVerificationRoute = `${host}/auth/emailVerification`;
