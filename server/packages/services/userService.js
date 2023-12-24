@@ -102,7 +102,7 @@ module.exports.emailVerification = async (req,res)=>{
 }
 
 module.exports.getAllUsers = async (req, res, next) => {
-  // console.log('entrylll;111');
+ 
   try {
      const users = await User.find().select([
       "email",

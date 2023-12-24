@@ -25,6 +25,8 @@ export default function Otp() {
    
       if (!localStorageUserDetails) {
         navigate("/login");
+      }else if(!localStorageUserDetails.userDetails.isEmailVerified){
+        navigate("/otp");
       }
        else {
         navigate("/");
@@ -56,7 +58,7 @@ export default function Otp() {
           
           const data = await response.json();
 
-          
+          {console.log('dataa;;;;;;',data)}
           if (data == {}) {
             toast.error(data.msg, toastOptions);
           }else{

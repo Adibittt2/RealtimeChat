@@ -88,6 +88,7 @@ export default function ChatContainer({ currentChat, socket }) {
   }, [messages]);
 
   return (
+    
     <Container>
       <div className="chat-header">
         <div className="user-details">
@@ -104,18 +105,62 @@ export default function ChatContainer({ currentChat, socket }) {
         <Logout />
       </div>
       <div className="chat-messages">
-        {messages.map((message) => {
-          {/* console.log("messageszzz;", message,currentChat.email); */}
+     
+        {messages.map((message, index) => {
+           
+          
+          const dateObject = new Date(message.createdAt);
+
+          // Convert to IST
+          dateObject.setHours(dateObject.getHours() + 5); // Add 5 hours
+          dateObject.setMinutes(dateObject.getMinutes() + 30); // Add 30 minutes
+
+          let date = dateObject.toISOString().slice(0,10);
+         
+           let time_hr = dateObject.toISOString().slice(11,13);
+           let time_min = dateObject.toISOString().slice(14,16);
+      
+           let prev_date;
+           if(index === 0){
+             prev_date = date;
+            
+           }
+           else{
+          
+            let timestamp = messages[index-1].createdAt;
+            
+            var prev_dateObject = new Date(timestamp);
+            prev_dateObject.setHours(dateObject.getHours() + 5); // Add 5 hours
+            prev_dateObject.setMinutes(dateObject.getMinutes() + 30); // Add 30 minutes
+
+          
+        if(date === prev_dateObject.toISOString().slice(0,10)){
+          
+          prev_date = "";
+        }else{
+        
+         prev_date = date;
+     
+        }
+      };
+
           return (
             <div ref={scrollRef} key={uuidv4()}>
-            <div className="message sended"><p>this is trial</p></div>
+           
+             <div className = {`${prev_date ? "date_changed": "date_same" }`}>{prev_date}</div>
               <div
                 className={`message ${
                   message.receiver === currentChat.email ? "recieved" : "sended"
                 }`}
               >
                 <div className="content ">
+                <div className= "text-message">
                   <p>{message.message}</p>
+
+                  </div>
+                   <div className="text-message-date">   
+                   <span>{time_hr}:{time_min}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -180,11 +225,33 @@ const Container = styled.div`
         font-size: 1.1rem;
         border-radius: 1rem;
         color: #d1d1d1;
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
         @media screen and (min-width: 720px) and (max-width: 1080px) {
           max-width: 70%;
         }
       }
+      .text-message{
+      width:100%;
+      align-self: flex-start;
+      padding:1px 2px 15px 2px;
     }
+
+    .text-message-date{
+     font-size:12px;
+     align-self:flex-end;
+     display: flex;
+    flex-direction: column;
+    color:grey;
+    }
+    .text-message-date span {
+  margin-top: auto; /* Push the span to the bottom */
+}
+    
+    }
+
+   
     .sended {
       justify-content: flex-start;
       .content {
@@ -196,7 +263,20 @@ const Container = styled.div`
 
       .content {
         background-color: #9900ff20;
+        min-width:30%;
       }
     }
+
+    .date_changed{
+    text-align: center;
+    color:white;
+  
+  }
+
+  .date_same{
+    height: 0px;
+    
+  }
+
   }
 `;

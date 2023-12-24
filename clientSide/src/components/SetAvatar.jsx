@@ -179,7 +179,7 @@ const Container = styled.div`
       }
     }
     .selected {
-      border: 0.4rem solid rgb(42, 3, 48);
+      border: 0.4rem solid white;
     }
   }
   .submit-btn {

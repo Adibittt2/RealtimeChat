@@ -41,9 +41,9 @@ module.exports.getMessages = async (req, res) => {
 
     const messages = await Messages.aggregate([
       {$match: {$or:[{sender:sender, receiver:receiver}, {sender:receiver, receiver:sender}]}},
-      // {$project:{_id:0,message:1, createdAt:1}},
+     
       {
-        $sort:{createdAt:-1}
+        $sort:{createdAt:1}
       }
     ]);
 
