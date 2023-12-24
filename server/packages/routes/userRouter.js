@@ -9,14 +9,23 @@
   searchUsersList,
   emailVerification
 } = require("../services/userService");
+const User = require("../models/userModel");
 
 const jwt = require('jsonwebtoken');
 
 const router = require("express").Router();
 
 router.get('/', async(req,res)=>{
-
-  res.send(`Hi you are in chat app auth router 12:55 `);
+  const users = await User.find().select([
+    "email",
+    "username",
+    "avatarImage",
+    "mobile",
+    "_id",
+  ]);
+ 
+  return res.json(users);
+  // res.send(`Hi you are in chat app auth router 12:55 `);
 })
 
 
