@@ -73,8 +73,13 @@ export default function ChatContainer({ currentChat, socket }) {
 
   useEffect(() => {
     if (socket.current) {
-      socket.current.on("msg-receive", (msg) => {
-        setArrivalMessage({ sender: false, message: msg });
+      socket.current.on("msg-receive", (data) => {
+        setArrivalMessage({ 
+          sender: localStorageUserDetails.userDetails.email,
+          reciver: data.receiver,
+           message: data.message ,
+           createdAt: new Date()
+          });
       });
     }
   }, []);
