@@ -45,10 +45,20 @@ export default function ChatContainer({ currentChat, socket }) {
 
 
   const handleSendMsg = async (msg) => {
+    const date = new Date();
+
+    // Convert to IST
+    const istDateOptions = {
+      timeZone: 'Asia/Kolkata',
+      hour12: true, // Use 24-hour format
+    };
+    
+    const istDate = date.toLocaleString('en-US', istDateOptions);
     socket.current.emit("send-msg", {
       receiver: currentChat.email,
       sender: localStorageUserDetails.userDetails.email,
       message: msg,
+      createdAt: istDate
     });
 
     let sentMsg = await axios.post(
@@ -78,7 +88,7 @@ export default function ChatContainer({ currentChat, socket }) {
           sender: localStorageUserDetails.userDetails.email,
           reciver: data.receiver,
            message: data.message ,
-           createdAt: new Date()
+           createdAt: data.createdAt
           });
       });
     }
