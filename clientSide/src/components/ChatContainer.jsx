@@ -47,18 +47,18 @@ export default function ChatContainer({ currentChat, socket }) {
   const handleSendMsg = async (msg) => {
     const date = new Date();
 
-    // Convert to IST
-    const istDateOptions = {
-      timeZone: 'Asia/Kolkata',
-      hour12: true, // Use 24-hour format
-    };
+    // // Convert to IST
+    // const istDateOptions = {
+    //   timeZone: 'Asia/Kolkata',
+    //   hour12: true, // Use 24-hour format
+    // };
     
-    const istDate = date.toLocaleString('en-US', istDateOptions);
+    // const istDate = date.toLocaleString('en-US', istDateOptions);
     socket.current.emit("send-msg", {
       receiver: currentChat.email,
       sender: localStorageUserDetails.userDetails.email,
       message: msg,
-      createdAt: istDate
+      createdAt: date
     });
 
     let sentMsg = await axios.post(
