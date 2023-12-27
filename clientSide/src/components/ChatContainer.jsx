@@ -124,45 +124,45 @@ export default function ChatContainer({ currentChat, socket }) {
         {messages.map((message, index) => {
            
           
-          const dateObject = new Date(message.createdAt);
+      //     const dateObject = new Date(message.createdAt);
 
-          // Convert to IST
-          dateObject.setHours(dateObject.getHours() + 5); // Add 5 hours
-          dateObject.setMinutes(dateObject.getMinutes() + 30); // Add 30 minutes
+      //     // Convert to IST
+      //     dateObject.setHours(dateObject.getHours() + 5); // Add 5 hours
+      //     dateObject.setMinutes(dateObject.getMinutes() + 30); // Add 30 minutes
 
-          let date = dateObject.toISOString().slice(0,10);
+      //     let date = dateObject.toISOString().slice(0,10);
          
-           let time_hr = dateObject.toISOString().slice(11,13);
-           let time_min = dateObject.toISOString().slice(14,16);
+      //      let time_hr = dateObject.toISOString().slice(11,13);
+      //      let time_min = dateObject.toISOString().slice(14,16);
       
-           let prev_date;
-           if(index === 0){
-             prev_date = date;
+      //      let prev_date;
+      //      if(index === 0){
+      //        prev_date = date;
             
-           }
-           else{
+      //      }
+      //      else{
           
-            let timestamp = messages[index-1].createdAt;
+      //       let timestamp = messages[index-1].createdAt;
             
-            var prev_dateObject = new Date(timestamp);
-            prev_dateObject.setHours(dateObject.getHours() + 5); // Add 5 hours
-            prev_dateObject.setMinutes(dateObject.getMinutes() + 30); // Add 30 minutes
+      //       var prev_dateObject = new Date(timestamp);
+      //       prev_dateObject.setHours(dateObject.getHours() + 5); // Add 5 hours
+      //       prev_dateObject.setMinutes(dateObject.getMinutes() + 30); // Add 30 minutes
 
           
-        if(date === prev_dateObject.toISOString().slice(0,10)){
+      //   if(date === prev_dateObject.toISOString().slice(0,10)){
           
-          prev_date = "";
-        }else{
+      //     prev_date = "";
+      //   }else{
         
-         prev_date = date;
+      //    prev_date = date;
      
-        }
-      };
+      //   }
+      // };
 
           return (
             <div ref={scrollRef} key={uuidv4()}>
            
-             <div className = {`${prev_date ? "date_changed": "date_same" }`}>{prev_date}</div>
+{/*              <div className = {`${prev_date ? "date_changed": "date_same" }`}>{prev_date}</div> */}
               <div
                 className={`message ${
                   message.receiver === currentChat.email ? "recieved" : "sended"
@@ -174,7 +174,7 @@ export default function ChatContainer({ currentChat, socket }) {
 
                   </div>
                    <div className="text-message-date">   
-                   <span>{time_hr}:{time_min}</span>
+{/*                    <span>{time_hr}:{time_min}</span> */}
                   </div>
                 </div>
               </div>
